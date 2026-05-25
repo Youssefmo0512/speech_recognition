@@ -3,6 +3,7 @@ import tempfile
 from pathlib import Path
 
 from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
 from speech_to_text import transcribe_audio_details
@@ -14,6 +15,7 @@ ALLOWED_EXTENSIONS = {".wav", ".mp3", ".m4a", ".ogg", ".flac", ".webm", ".mp4"}
 MODEL_SIZES = {"tiny", "base", "small", "medium", "large-v3"}
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes so the GitHub Pages frontend can access the API
 app.config["MAX_CONTENT_LENGTH"] = 200 * 1024 * 1024
 UPLOAD_DIR.mkdir(exist_ok=True)
 
@@ -62,4 +64,4 @@ def transcribe():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "7860"))
-    app.run(debug=False, host="127.0.0.1", port=port)
+    app.run(debug=False, host="0.0.0.0", port=port)

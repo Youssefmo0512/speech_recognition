@@ -3,3 +3,5 @@ soundfile
 arabic-reshaper
 python-bidi
 Flask
+Flask-Cors
+gunicorn
