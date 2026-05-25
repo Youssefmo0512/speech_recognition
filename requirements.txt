@@ -1,0 +1,5 @@
+faster-whisper
+soundfile
+arabic-reshaper
+python-bidi
+Flask

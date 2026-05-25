@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>صدى | تفريغ صوتي ذكي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="./static/js/app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <aside class="sidebar" aria-label="لوحة التحكم">
+          <div class="brand">
+            <span class="brand-mark">ص</span>
+            <div>
+              <p class="eyebrow">مشروع تمييز الكلام</p>
+              <h1>صدى</h1>
+            </div>
+          </div>
+
+          <div class="status-card">
+            <span class="status-dot"></span>
+            <div>
+              <strong>جاهز للتفريغ</strong>
+              <span>يدعم العربية واللغات المتعددة</span>
+            </div>
+          </div>
+
+          <form id="transcribeForm" class="control-panel">
+            <label class="field">
+              <span>حجم النموذج</span>
+              <select name="model_size" id="modelSize">
+                <option value="base" selected>Base - متوازن</option>
+                <option value="tiny">Tiny - سريع</option>
+                <option value="small">Small - أدق</option>
+                <option value="medium">Medium - احترافي</option>
+                <option value="large-v3">Large v3 - أعلى دقة</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>اللغة</span>
+              <select name="language" id="language">
+                <option value="">اكتشاف تلقائي</option>
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="es">Español</option>
+              </select>
+            </label>
+
+            <div class="tips">
+              <div><i data-lucide="sparkles"></i><span>اختيار Medium مناسب جدًا للعربية.</span></div>
+              <div><i data-lucide="cpu"></i><span>على GitHub Pages تظهر الواجهة فقط، والتفريغ يحتاج خادم بايثون.</span></div>
+            </div>
+          </form>
+        </aside>
+
+        <section class="main-panel">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Speech to Text</p>
+              <h2>حوّل الصوت إلى نص منظم بتوقيتات واضحة</h2>
+            </div>
+            <div class="top-actions">
+              <button class="icon-button" id="copyButton" type="button" title="نسخ النص" disabled><i data-lucide="copy"></i></button>
+              <button class="icon-button" id="downloadButton" type="button" title="تحميل النص" disabled><i data-lucide="download"></i></button>
+            </div>
+          </header>
+
+          <div class="studio-grid">
+            <section class="upload-zone" id="dropZone">
+              <input id="audioInput" name="audio" type="file" accept="audio/*,video/mp4" hidden>
+              <div class="waveform" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <h3>اسحب ملف صوتي هنا</h3>
+              <p id="fileLabel">أو اختر ملفًا من جهازك بصيغ WAV, MP3, M4A, WEBM</p>
+              <div class="upload-actions">
+                <button class="primary-button" id="browseButton" type="button"><i data-lucide="folder-open"></i><span>اختيار ملف</span></button>
+                <button class="secondary-button" id="recordButton" type="button"><i data-lucide="mic"></i><span>تسجيل مباشر</span></button>
+              </div>
+            </section>
+
+            <section class="metrics-panel" aria-live="polite">
+              <div class="metric">
+                <span>اللغة</span>
+                <strong id="detectedLanguage">--</strong>
+              </div>
+              <div class="metric">
+                <span>الثقة</span>
+                <strong id="confidence">--</strong>
+              </div>
+              <div class="metric">
+                <span>المدة</span>
+                <strong id="duration">--</strong>
+              </div>
+            </section>
+          </div>
+
+          <section class="result-panel">
+            <div class="result-header">
+              <div>
+                <p class="eyebrow">الناتج</p>
+                <h3>النص المفرّغ</h3>
+              </div>
+              <button class="primary-button" id="submitButton" type="button" disabled><i data-lucide="wand-2"></i><span>ابدأ التفريغ</span></button>
+            </div>
+
+            <div class="progress" id="progress" hidden>
+              <span></span>
+            </div>
+
+            <article class="transcript" id="transcript" dir="auto">
+              اختار ملفًا أو سجّل صوتًا، وستظهر النتيجة هنا مع المقاطع الزمنية.
+            </article>
+
+            <div class="segments" id="segments"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
